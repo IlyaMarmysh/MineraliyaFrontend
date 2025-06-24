@@ -35,7 +35,9 @@ export default function RootLayout({
                     reverseOrder={false}
                 />
                 <HeaderLayout/>
-                {children}
+                <main className="max-w-7xl flex flex-col gap-8 mx-auto justify-start my-8 min-h-full w-full">
+                    {children}
+                </main>
                 <FooterLayout/>
             </div>
         </UserProvider>

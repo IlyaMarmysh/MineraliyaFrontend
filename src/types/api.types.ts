@@ -48,3 +48,28 @@ export interface ILoginBody {
 export interface ISearchForm {
     search: string;
 }
+export type ActiveCollectors = Collector[];
+export interface Collector {
+    id: number;
+    name: string;
+    avatar: string | null;
+};
+export interface IMineralMain {
+    name: string,
+    image: string[],
+    chemicalFormula: string,
+    color: string,
+    streak: string,
+    luster: string,
+    diaphaneity: string,
+    cleavage: string,
+    fracture: string,
+    hardness: string,
+}
+export type ISimilarMinerals = ISimilarMineral[];
+export interface ISimilarMineral {
+    id: number;
+    name: string;
+    image: string | null;
+    url: string;
+};

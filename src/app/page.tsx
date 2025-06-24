@@ -1,13 +1,9 @@
-'use client';
-
-import { useCookiesNext } from 'cookies-next';
-import {useUser} from "@/context/UserContext";
+import MainContent from "@/components/pages/index/MainContent";
 
 export default function ClientComponent() {
-    const { user, isLoading } = useUser();
   return (
       <div>
-          {user?.avatar}
+          <MainContent/>
       </div>
   );
 }
