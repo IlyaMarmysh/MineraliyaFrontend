@@ -9,7 +9,7 @@ class UserApi {
     private static readonly API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
     public static async fetchUser(token: string): Promise<User> {
-        const response = await fetch(`${this.API_BASE_URL}/user`, {
+        const response = await fetch(`${this.API_BASE_URL}/api/user`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ class UserApi {
 
     public static async fetchUserById(id: number): Promise<User> {
         return await fetchGET({
-            url: `/user/${id}`,
+            url: `/api/user/${id}`,
         })
     }
 
@@ -37,6 +37,7 @@ class UserApi {
             setCookie("token", data.token, {
                 maxAge: 30 * 24 * 60 * 60,
             });
+            localStorage.setItem('accessToken', data.token);
             toast.success("Регистрация прошла успешно");
         });
     };

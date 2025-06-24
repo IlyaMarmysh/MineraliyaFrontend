@@ -1,16 +1,12 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import {User, UserContextType} from "@/types/types";
+import { User, UserContextType } from "@/types/types";
 import UserApi from "@/api/UserApi";
-
-
 const UserContext = createContext<UserContextType | undefined>(undefined);
-
 interface UserProviderProps {
     children: React.ReactNode;
 }
-
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -19,13 +15,14 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const login = async (token: string) => {
         try {
             setIsLoading(true);
+            setError(null);
             const userData = await UserApi.fetchUser(token);
             UserApi.storeTokens({ accessToken: token });
             setUser(userData);
-            setError(null);
         } catch (err) {
             setError(err instanceof Error ? err.message : 'Unknown error');
             setUser(null);
+            UserApi.clearTokens(); // Очищаем токен при ошибке
         } finally {
             setIsLoading(false);
         }
@@ -34,6 +31,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     const logout = () => {
         UserApi.clearTokens();
         setUser(null);
+        setError(null);
     };
 
     const updateUser = (userData: Partial<User>) => {
@@ -41,13 +39,12 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
             setUser({ ...user, ...userData });
         }
     };
-
-    // Проверка авторизации при монтировании
     useEffect(() => {
         const token = UserApi.getAccessToken();
         if (token) {
             login(token).catch(err => {
                 console.error('Auto-login failed:', err);
+                UserApi.clearTokens();
             });
         } else {
             setIsLoading(false);
@@ -55,7 +52,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, isLoading, error, login, logout, updateUser }}>
+        <UserContext.Provider value={{ user, isLoading, error, login, logout, updateUser}}>
             {children}
         </UserContext.Provider>
     );
