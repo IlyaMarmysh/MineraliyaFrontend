@@ -1,8 +1,9 @@
 import {AuthTokens, User} from "@/types/types";
 import {fetchGET, fetchMutate} from "@/api/fetch";
 import {setCookie} from "cookies-next";
-import {IRegisterParams} from "@/types/api.types";
+import {ILoginParams, IRegisterParams} from "@/types/api.types";
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
 
 class UserApi {
@@ -21,6 +22,34 @@ class UserApi {
         }
         return response.json();
     }
+
+    public static login = async ({body}: ILoginParams, onSuccess?:() => void) => {
+        return await fetchMutate({
+            url: "/api/login",
+            body,
+            method: "POST",
+        }).then((data: { token: string }) => {
+            setCookie("token", data.token, {
+                maxAge: 30 * 24 * 60 * 60,
+            });
+            localStorage.setItem('accessToken', data.token);
+            toast.success("Авторизация прошла успешно");
+            try {
+                onSuccess?.();
+            } catch (e) {
+                console.error("Error in onSuccess callback:", e);
+                window.location.href = '/';
+            }
+
+            return data;
+        }).catch(error => {
+            toast.error(error.message || "Ошибка авторизации");
+            window.location.href = '/login'; // Редирект при ошибке
+            throw error; // Пробрасываем ошибку дальше
+
+        });
+
+    };
 
     public static async fetchUserById(id: number): Promise<User> {
         return await fetchGET({

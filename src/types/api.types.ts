@@ -26,12 +26,24 @@ export interface IregisterBody {
     password_confirmation: string;
     avatar_url: string;
 }
+
 export interface IregisterForm {
     name: string;
     email: string;
     password: string;
     confirmPassword: string;
     avatarUrl: string;
+}
+export interface ILoginParams{
+    body: ILoginBody;
+}
+export interface ILoginForm {
+    email: string;
+    password: string;
+}
+export interface ILoginBody {
+    email: string;
+    password: string;
 }
 export interface ISearchForm {
     search: string;

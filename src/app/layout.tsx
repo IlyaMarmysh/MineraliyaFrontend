@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 import { UserProvider } from '@/context/UserContext';
 import {Toaster} from "react-hot-toast";
 import HeaderLayout from "@/components/layout/HeaderLayout";
+import FooterLayout from "@/components/layout/FooterLayout";
 
 export default function RootLayout({
                                        children,
@@ -35,6 +36,7 @@ export default function RootLayout({
                 />
                 <HeaderLayout/>
                 {children}
+                <FooterLayout/>
             </div>
         </UserProvider>
         </body>
