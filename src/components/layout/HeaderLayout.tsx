@@ -3,6 +3,7 @@ import HeaderNavigation from "@/components/layout/header/HeaderNavigation";
 
 import IconsNavigation from "@/components/layout/header/IconsNavigation";
 import HeaderSearchForm from "@/components/layout/header/HeaderSearchForm";
+import {HeaderUserProfile} from "@/components/layout/header/HeaderUserProfile";
 
 
 export default function HeaderLayout() {
@@ -13,6 +14,7 @@ export default function HeaderLayout() {
             <HeaderNavigation/>
             <HeaderSearchForm/>
             <IconsNavigation/>
+            <HeaderUserProfile/>
         </header>
     )
 };

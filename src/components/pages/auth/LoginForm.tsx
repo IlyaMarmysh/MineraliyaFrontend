@@ -29,6 +29,7 @@ export default function LoginForm() {
             };
             await UserApi.login({ body: loginData }, () => {
                 router.push('/')
+                router.refresh()
             });
         } catch (error: any) {
             console.error("Login error:", error);

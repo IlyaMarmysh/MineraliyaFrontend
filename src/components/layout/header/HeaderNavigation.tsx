@@ -1,6 +1,7 @@
 import Link from "next/link";
+import {INavigationLinks} from "@/types/types";
 export default function HeaderNavigation() {
-    const navigationLinks = [["Explore", "/public"],["Create", "/public"],["Events", "/public"],["Feed", "/public"]]
+    const navigationLinks:INavigationLinks = [["Explore", "/public"],["Create", "/public"],["Events", "/public"],["Feed", "/public"]]
     return (
         <nav className="hidden items-center justify-start lg:flex">
             <ul className="flex justify-between gap-9 h-full items-center">

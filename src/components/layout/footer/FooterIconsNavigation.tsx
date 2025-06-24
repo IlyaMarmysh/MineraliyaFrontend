@@ -5,11 +5,6 @@ export default function FooterIconsLinks () {
     return(
         <div className="w-full mt-10 px-5">
             <ul className="flex gap-5 flex-wrap justify-center">
-                <li>
-                    <Link href="/" className="text-soft-mint ">
-                        <img src="icons/Twitter.svg" alt=""/>
-                    </Link>
-                </li>
                 {
                     navigationLinks.map((link, index) => (
                         <li key={index}>

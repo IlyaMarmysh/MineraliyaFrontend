@@ -48,3 +48,4 @@ export interface PhotoUploadFieldProps<T extends FieldValues> {
 export type FormValues = {
     avatar: string;
 };
+export type INavigationLinks = string[][]
